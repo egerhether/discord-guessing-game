@@ -82,7 +82,7 @@ This error occurs if the program finds too little likely authors than requested 
 
 3. **Do not call this function before ...**
 
-This error should not occur when the original code is ran. If you're getting this error, make sure your alterations to the code follow the required order of file creations within `Embedder` and `Processor` objects!
+This error should not occur when the original code is ran. If you're getting this error, make sure your changes to the code follow the required order of file creations within `Embedder` and `Processor` objects!
 
 ## Method
 
@@ -90,7 +90,7 @@ This section is aimed at users interested in HOW the program (specifically the p
 
 In short, during preprocessing after history of all messages is created to provide context for message in the game, messages to be taken into account during the game are obtained by filtering the message history further. A regular cleanup is performed with links, mentions, and stock messages like "Joined the server." are removed. Additionally, only messages between 3 and 10 words are taken into account.
 
-After that all messages chosen in this process are encoded using [LaBSE](https://github.com/bojone/labse) model. LaBSE is a language-agnostic sentence encoder based on BERT, which provides vector representations for sentences given to it as input. In this manner, we obtain a vector encoding meaning of each message. To find unique messages making for an interesting guessing game, we compute a mean of all encodings (a sort of mean message sent in the server) and then compute L2 distance between the mean and each encoding. In this way we quantify how far away from average a message is. This system is not perfect, but in practice provides a good heuristic way to find interesting messages.
+After that all messages chosen in this process are encoded using [LaBSE](https://github.com/bojone/labse) model. LaBSE is a language-agnostic sentence encoder based on BERT, which provides vector representations for sentences given to it as input. In this manner, we obtain a vector encoding meaning of each message. LaBSE will get downloaded during the first run of the program and will run entire locally thanks to `sentence-transformers` huggingface library. To find unique messages making for an interesting guessing game, we compute a mean of all encodings (a sort of mean message sent in the server) and then compute L2 distance between the mean and each encoding. In this way we quantify how far away from average a message is. This system is not perfect, but in practice provides a good heuristic way to find interesting messages.
 
 ### threshold
 
